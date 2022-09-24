@@ -8,7 +8,7 @@ from os import path
 rootUrl = "https://www2.gogoanime.ee/"
 login_url = 'https://www2.gogoanime.ee/login.html'
 
-# input varibles
+# input variables
 file_path = 'C:\\Users\\benja\\Videos\\anime'
 animeName = input("input anime name: ").lower().replace(' ', '-')
 firstEpd = int(input("input first episode to download: "))
@@ -82,10 +82,10 @@ def downloadAnime(startEp, endEp, qualitySelected):
             continue
         # download anime
         for link in downloadLinks.values():
-            print(f'{ePath}, {link}')
-            # print(f'about to download {ePath}')
-            # downloadLink(link, ePath)
-            # print("downloaded")
+            # print(f'{ePath}, {link}')
+            print(f'about to download {ePath}')
+            downloadLink(link, ePath)
+            print("downloaded")
 
 
 s = requests.Session()
