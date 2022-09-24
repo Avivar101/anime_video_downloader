@@ -33,7 +33,7 @@ def getLinks(url, qualitySelected):
     r = s.get(url)
     soup = bs(r.text, 'html.parser')
     links = soup.find_all("div", class_="cf-download")
-    
+
     selected_quality = selectQuality(qualitySelected)
 
     # get the download links from the html
