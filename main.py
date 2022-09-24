@@ -1,11 +1,8 @@
 from bs4 import BeautifulSoup as bs
 from lxml import html
-from pprint import pprint
-import sys
 from pySmartDL import SmartDL
 import requests
 from os import path
-import json
 
 # URLs
 rootUrl = "https://www2.gogoanime.ee/"
