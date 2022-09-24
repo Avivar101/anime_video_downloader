@@ -7,11 +7,19 @@ import requests
 from os import path
 import json
 
+# URLs
 rootUrl = "https://www2.gogoanime.ee/"
 login_url = 'https://www2.gogoanime.ee/login.html'
 
+# input varibles
 file_path = 'C:\\Users\\benja\\Videos\\anime'
-animeName = input("input anime name").lower().replace(' ', '-')
+animeName = input("input anime name: ").lower().replace(' ', '-')
+firstEpd = int(input("input first episode to download: "))
+lastEpd = int(input("input last episode to download: "))
+print("Select your preferred  Quality")
+print("1 for 360p, 2 for 480p, 3 for 720p, 4 for 1080p")
+pickQuality = int(input("select quality: "))
+
 quality = {1: "640x360", 2: "854x480", 3: "1280x720", 4: "1920x1080"}
 
 email = 'mgb40536@nezid.com'
@@ -77,9 +85,10 @@ def downloadAnime(startEp, endEp, qualitySelected):
             continue
         # download anime
         for link in downloadLinks.values():
-            print(f'about to download {ePath}')
-            downloadLink(link, ePath)
-            print("downloaded")
+            print(f'{ePath}, {link}')
+            # print(f'about to download {ePath}')
+            # downloadLink(link, ePath)
+            # print("downloaded")
 
 
 s = requests.Session()
@@ -95,7 +104,6 @@ payload = {
 }
 p = s.post(login_url, data=payload)
 
-downloadAnime(1, 2, 2)
-
+downloadAnime(firstEpd, lastEpd, pickQuality)
 
 s.close()

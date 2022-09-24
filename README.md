@@ -2,6 +2,9 @@
  A script for downloading multiple episodes of anime
 from Gogoanime
 
+## Usage
+
+
 ## Disclaimer
 
 ## Legal Warning
