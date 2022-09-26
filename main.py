@@ -1,16 +1,19 @@
 from bs4 import BeautifulSoup as bs
 from lxml import html
-from pySmartDL import SmartDL
 import requests
 from os import path
+from idm import IDMan
+
+downloader = IDMan()
 
 # URLs
 rootUrl = "https://www2.gogoanime.ee/"
 login_url = 'https://www2.gogoanime.ee/login.html'
 
 # input variables
-file_path = 'C:\\Users\\benja\\Videos\\anime'
+# file_path = 'C:\\Users\\benja\\Videos\\anime'
 animeName = input("input anime name: ").lower().replace(' ', '-')
+file_path = input('input download filepath: ')
 firstEpd = int(input("input first episode to download: "))
 lastEpd = int(input("input last episode to download: "))
 print("Select your preferred  Quality")
@@ -24,10 +27,8 @@ password = 'kevinkevin'
 
 
 # download anime
-def downloadLink(link, filepath):
-    obj = SmartDL(link, filepath)
-    obj.start()
-    obj.get_progress_bar()
+def downloadLink(link, filepath, filename):
+    downloader.download(link, filepath, output=filename, lflag=2)
 
 
 # get download links
@@ -63,10 +64,12 @@ def selectQuality(qualitySelected):
 def getAnimeUrls(start, end):
     animeUrl = {}
     for i in range(start, end + 1):
-        output_name = animeName + "_" + str(i)
         url_list = rootUrl + animeName + '-episode-' + str(i)
-        ep_path = path.normpath(file_path + "/" + animeName + "/" + output_name + '.mp4')
-        animeUrl[url_list] = ep_path
+        file_name = animeName + '-episode-' + str(i)
+        ep_path = path.normpath(file_path + "/" + animeName)
+        ep_path_and_name = ( ep_path, file_name)
+        animeUrl[url_list] = ep_path_and_name
+        # print(type(ep_path_and_name))
     return animeUrl
 
 
@@ -75,16 +78,19 @@ def downloadAnime(startEp, endEp, qualitySelected):
     # get selected episodes anime urls
     urls = getAnimeUrls(startEp, endEp)
     # loop through all urls and path
-    for epUrl, ePath in urls.items():
+    for epUrl, ePathAndName in urls.items():
         downloadLinks = getLinks(epUrl, qualitySelected)
+        ePath= ePathAndName[0]
+        name= ePathAndName[1]
         if len(downloadLinks) == 0:
             print(f"EP {epUrl} NOT FOUND ")
             continue
         # download anime
         for link in downloadLinks.values():
-            # print(f'{ePath}, {link}')
-            print(f'about to download {ePath}')
-            downloadLink(link, ePath)
+            # print(f'{ePathAndName}, {link}')
+            # print(name, ePath)
+            print(f'about to download {name}')
+            downloadLink(link, ePath, name)
             print("downloaded")
 
 

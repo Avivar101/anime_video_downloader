@@ -1,7 +1,9 @@
 ## Todo:
 * [ ] GUI
 * [ ] error catchers
-* [ ] input variables
+* [x] input variables
+* [ ] queue idm downloads
+* [ ] use name sent by server
 
 ## Input Variables:
 * [ ] filepath
