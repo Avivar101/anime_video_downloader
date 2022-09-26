@@ -61,34 +61,34 @@ def selectQuality(qualitySelected):
 
 
 # get the episode urls and download path of the anime
-def getAnimeUrls(start, end):
+def getAnimeUrls(start, end, quality):
     animeUrl = {}
+    quality_selected = selectQuality(quality)
     for i in range(start, end + 1):
         url_list = rootUrl + animeName + '-episode-' + str(i)
-        file_name = animeName + '-episode-' + str(i)
+        file_name = f'({quality_selected}-gogoanime)' + animeName + '-episode-' + str(i) + '.mp4'
         ep_path = path.normpath(file_path + "/" + animeName)
         ep_path_and_name = ( ep_path, file_name)
         animeUrl[url_list] = ep_path_and_name
-        # print(type(ep_path_and_name))
     return animeUrl
 
 
 # function to download the animes
 def downloadAnime(startEp, endEp, qualitySelected):
     # get selected episodes anime urls
-    urls = getAnimeUrls(startEp, endEp)
+    urls = getAnimeUrls(startEp, endEp, qualitySelected)
     # loop through all urls and path
     for epUrl, ePathAndName in urls.items():
         downloadLinks = getLinks(epUrl, qualitySelected)
-        ePath= ePathAndName[0]
-        name= ePathAndName[1]
+        ePath = ePathAndName[0]
+        name = ePathAndName[1]
         if len(downloadLinks) == 0:
             print(f"EP {epUrl} NOT FOUND ")
             continue
         # download anime
         for link in downloadLinks.values():
             # print(f'{ePathAndName}, {link}')
-            # print(name, ePath)
+            # print(name)
             print(f'about to download {name}')
             downloadLink(link, ePath, name)
             print("downloaded")
