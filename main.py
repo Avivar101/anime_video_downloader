@@ -66,6 +66,7 @@ def getAnimeUrls(start, end, quality):
     quality_selected = selectQuality(quality)
     for i in range(start, end + 1):
         url_list = rootUrl + animeName + '-episode-' + str(i)
+        # filename has to match the name of the episode sent by the server esle idm would prompt for rename
         file_name = f'({quality_selected}-gogoanime)' + animeName + '-episode-' + str(i) + '.mp4'
         ep_path = path.normpath(file_path + "/" + animeName)
         ep_path_and_name = ( ep_path, file_name)
