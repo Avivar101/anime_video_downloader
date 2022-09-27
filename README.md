@@ -1,5 +1,5 @@
 # Multiple anime downloader
- A script for downloading multiple episodes of anime
+ A simple python script for downloading multiple episodes of anime
 from Gogoanime
 
 ## Usage
@@ -14,3 +14,6 @@ law in your country. Usage of this application may also cause a violation of the
 and the stream provider. This tool is not responsible for your actions; please make an informed decision prior to 
 using this application. Usage of third party programs and/or libraries may be forbidden in your country without proper
 consent of the copyright holder.
+
+## Credits
+This Script was written with aid and references from 
