@@ -3,6 +3,7 @@ from lxml import html
 import requests
 from os import path
 from idm import IDMan
+import time
 
 downloader = IDMan()
 
@@ -11,7 +12,6 @@ rootUrl = "https://www2.gogoanime.ee/"
 login_url = 'https://www2.gogoanime.ee/login.html'
 
 # input variables
-# file_path = 'C:\\Users\\benja\\Videos\\anime'
 animeName = input("input anime name: ").lower().replace(' ', '-')
 file_path = input('input download filepath: ')
 firstEpd = int(input("input first episode to download: "))
@@ -26,7 +26,7 @@ email = 'mgb40536@nezid.com'
 password = 'kevinkevin'
 
 
-# download anime
+# function to download anime
 def downloadLink(link, filepath, filename):
     downloader.download(link, filepath, output=filename, lflag=2)
 
@@ -35,7 +35,7 @@ def downloadLink(link, filepath, filename):
 def getLinks(url, qualitySelected):
     # dictionary of anime quality their links
     links_dict = {}
-    # get link html
+    # get html
     r = s.get(url)
     soup = bs(r.text, 'html.parser')
     links = soup.find_all("div", class_="cf-download")
@@ -78,21 +78,28 @@ def getAnimeUrls(start, end, quality):
 def downloadAnime(startEp, endEp, qualitySelected):
     # get selected episodes anime urls
     urls = getAnimeUrls(startEp, endEp, qualitySelected)
-    # loop through all urls and path
+
+    # loops through all urls
     for epUrl, ePathAndName in urls.items():
         downloadLinks = getLinks(epUrl, qualitySelected)
-        ePath = ePathAndName[0]
+        # path to save the anime on your system
+        epPath = ePathAndName[0]
+        # name the anime is saved with
         name = ePathAndName[1]
+
         if len(downloadLinks) == 0:
             print(f"EP {epUrl} NOT FOUND ")
             continue
+
         # download anime
         for link in downloadLinks.values():
-            # print(f'{ePathAndName}, {link}')
-            # print(name)
-            print(f'about to download {name}')
-            downloadLink(link, ePath, name)
-            print("downloaded")
+            # delay next download function call
+            if epUrl != list(urls.keys())[-1]:
+                print(f'about to download {name}')
+                downloadLink(link, epPath, name)
+                print('not last anime')
+                time.sleep(20)
+            print("downloading")
 
 
 s = requests.Session()
