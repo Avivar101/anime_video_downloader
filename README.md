@@ -3,7 +3,9 @@
 from Gogoanime
 
 ## Usage
-
+1. make sure to have python installed on your system
+2. download and unzip the code
+3. run `python requirement.txt` 
 
 ## Disclaimer
 
@@ -16,4 +18,4 @@ using this application. Usage of third party programs and/or libraries may be fo
 consent of the copyright holder.
 
 ## Credits
-This Script was written with aid and references from 
+This Script was written with aid and references from  https://github.com/3ddelano/gogoanime-batch-downloader
