@@ -4,15 +4,33 @@ import requests
 from os import path
 from idm import IDMan
 import time
+import re
 
 downloader = IDMan()
 
+# input frist URL
+print('Input the link of the first anime episode you wish to download')
+animeUrl = input('first episode of url: ')
+
 # URLs
-rootUrl = "https://www2.gogoanime.ee/"
-login_url = 'https://www2.gogoanime.ee/login.html'
+# the root url
+rootUrl = re.search(
+    r"[A-Za-z0-9]+://[A-Za-z0-9]+\.[a-zA-Z]+/", animeUrl).group(0)
+
+login_url = rootUrl + 'login.html'
+
+
+animeNameFromLink = re.search(
+    r"([A-Za-z0-9]+(-[A-Za-z0-9]+)+)", animeUrl).group(0)
+animeName = re.sub(r"-episode-\d+$", "", animeNameFromLink)
+
+downloadUrl = re.sub(r"\d+$", "", animeUrl)
+
+filePathAnimeName = re.sub(r"-episode-\d+$", "", animeNameFromLink)
+
 
 # input variables
-animeName = input("input anime name: ").lower().replace(' ', '-')
+# animeName = input("input anime name: ").lower().replace(' ', '-')
 file_path = input('input download filepath: ')
 firstEpd = int(input("input first episode to download: "))
 lastEpd = int(input("input last episode to download: "))
@@ -65,10 +83,11 @@ def getAnimeUrls(start, end, v_quality):
     animeUrl = {}
     quality_selected = selectQuality(v_quality)
     for i in range(start, end + 1):
-        url_list = rootUrl + animeName + '-episode-' + str(i)
+        url_list = downloadUrl + str(i)
         # filename has to match the name of the episode sent by the server else idm would prompt for rename
-        file_name = f'({quality_selected}-gogoanime)' + animeName + '-episode-' + str(i) + '.mp4'
-        ep_path = path.normpath(file_path + "/" + animeName)
+        file_name = f'({quality_selected}-gogoanime)' + \
+            animeName + '-episode-' + str(i) + '.mp4'
+        ep_path = path.normpath(file_path + "/" + filePathAnimeName)
         ep_path_and_name = (ep_path, file_name)
         animeUrl[url_list] = ep_path_and_name
     return animeUrl

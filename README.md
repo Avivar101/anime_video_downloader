@@ -7,7 +7,14 @@ from Gogoanime
 
 1. make sure to have python installed on your system
 2. download and unzip the code
-3. run `py -m pip install -r requirements.txt` in your project directory to install neccessary libraries.
+3. navigate to anime_video_downloader root directory using your preferred terminal
+4. create a python environment in your current directory using `python -m venv venv`
+5. run `.\venv\Scripts\activate.bat` to activate the environment
+6. run `py -m pip install -r requirements.txt` in your project directory to install neccessary libraries.
+7. after installation is completed run `py main.py` and follow the prompt
+
+## *Note*
+
 
 ## Disclaimer
 
