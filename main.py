@@ -118,6 +118,9 @@ def downloadAnime(startEp, endEp, qualitySelected):
                 downloadLink(link, epPath, name)
                 print('not last anime')
                 time.sleep(20)
+            elif epUrl == list(urls.keys())[-1]:
+                print(f'last anime {name}')
+                downloadLink(link, epPath, name)
             print("downloading")
 
 
