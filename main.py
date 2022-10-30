@@ -8,7 +8,7 @@ import re
 
 downloader = IDMan()
 
-# input frist URL
+# input first URL
 print('Input the link of the first anime episode you wish to download')
 animeUrl = input('first episode of url: ')
 
