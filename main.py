@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup as bs
+from decouple import config
 from lxml import html
 import requests
 from os import path
@@ -40,8 +41,8 @@ pickQuality = int(input("select quality: "))
 
 quality = {1: "640x360", 2: "854x480", 3: "1280x720", 4: "1920x1080"}
 
-email = 'mgb40536@nezid.com'
-password = 'kevinkevin'
+email = config('EMAIL')
+password = config('PASSWORD')
 
 
 # function to download anime
