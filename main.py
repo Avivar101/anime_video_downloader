@@ -124,6 +124,9 @@ def downloadAnime(startEp, endEp, qualitySelected):
             print("downloading")
 
 
+def main(firstEpd, lastEpd, pickQuality):
+    downloadAnime(firstEpd, lastEpd, pickQuality)
+
 s = requests.Session()
 result = s.get(login_url)
 
@@ -137,6 +140,6 @@ payload = {
 }
 p = s.post(login_url, data=payload)
 
-downloadAnime(firstEpd, lastEpd, pickQuality)
+main(firstEpd, lastEpd, pickQuality)
 
 s.close()
