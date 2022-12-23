@@ -14,24 +14,25 @@ print('Input the link of the first anime episode you wish to download')
 animeUrl = input('first episode of url: ')
 
 # URLs
-# the root url
+# get the root url
 rootUrl = re.search(
     r"[A-Za-z0-9]+://[A-Za-z0-9]+\.[a-zA-Z]+/", animeUrl).group(0)
-
+# the login url
 login_url = rootUrl + 'login.html'
 
-
+# get name of anime from link
 animeNameFromLink = re.search(
     r"([A-Za-z0-9]+(-[A-Za-z0-9]+)+)", animeUrl).group(0)
 animeName = re.sub(r"-episode-\d+$", "", animeNameFromLink)
 
+# create the download url
 downloadUrl = re.sub(r"\d+$", "", animeUrl)
 
+# create download filepath
 filePathAnimeName = re.sub(r"-episode-\d+$", "", animeNameFromLink)
 
 
 # input variables
-# animeName = input("input anime name: ").lower().replace(' ', '-')
 file_path = input('input download filepath: ')
 firstEpd = int(input("input first episode to download: "))
 lastEpd = int(input("input last episode to download: "))
@@ -132,6 +133,7 @@ s = requests.Session()
 result = s.get(login_url)
 
 tree = html.fromstring(result.text)
+# extract hidden token
 token = list(set(tree.xpath("//input[@name='_csrf']/@value")))[0]
 
 payload = {
